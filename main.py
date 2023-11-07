@@ -1,19 +1,67 @@
+from tkinter import *
+
+
 receitas = {}
 despesas = {}
+def receita():
+    def add_receita():
+        descricao= entrada1.get() #input('Informe a descrição da receita: ')
+        data_receita=entrada2.get() #input('Informe o dia do recebimento: ')
+        valor_recebimento =entrada3.get()  #float(input('Informe o valor do recebimento: '))
+        tempo= entrada4.get() #int(input('Por quanto tempo vc ira receber: '))
+        return receitas.update({descricao:[data_receita,valor_recebimento,tempo]})
 
-def add_receita():
-    descricao= input('Informe a descrição da receita: ')
-    data_receita= input('Informe o dia do recebimento: ')
-    valor_recebimento =float(input('Informe o valor do recebimento: '))
-    tempo= int(input('Por quanto tempo vc ira receber: '))
-    return receitas.update({descricao:[data_receita,valor_recebimento,tempo]})
 
-def add_despesas():
-    descricao= input('Informe a descrição da despesa: ')
-    data_receita= input('Informe o dia do pagamento: ')
-    valor_recebimento =float(input('Informe o valor da despesa: '))
-    tempo= int(input('Por quanto tempo durara a fatura: '))
-    return despesas.update({descricao:[data_receita,valor_recebimento,tempo]})
+    adReceitas=Tk()
+    adReceitas.configure(background="#dde")
+    adReceitas.geometry("500x500")
+    adReceitas.title('Receitas')
+    Button(adReceitas, text="Cadastrar",width=22, bg='white', fg='black',command=add_receita, font='None 14 bold').grid(row=8, column=0,columnspan=3, sticky=W)
+
+    entrada1=Entry(adReceitas, width=25, bg='white')
+    entrada1.grid(row=1, column=1, sticky=W)
+    entrada2=Entry(adReceitas, width=25, bg='white')
+    entrada2.grid(row=2, column=1, sticky=W)
+    entrada3=Entry(adReceitas, width=25, bg='white')
+    entrada3.grid(row=3, column=1, sticky=W)
+    entrada4=Entry(adReceitas, width=25, bg='white')
+    entrada4.grid(row=4, column=1, sticky=W)
+    
+    Label(adReceitas, text="Descrição da Receita").grid(row=1, column=0, sticky=W)
+    Label(adReceitas, text="Dia do recebimento da receita").grid(row=2, column=0, sticky=W)
+    Label(adReceitas, text="Valor").grid(row=3, column=0, sticky=W)
+    Label(adReceitas, text="duração").grid(row=4, column=0, sticky=W)
+
+    adReceitas.mainloop()
+def despesa():
+    def add_despesas():
+        descricao= entrada1.get#input('Informe a descrição da despesa: ')
+        data_receita= entrada2.get#input('Informe o dia do pagamento: ')
+        valor_recebimento =entrada3.get #float(input('Informe o valor da despesa: '))
+        tempo= entrada4.get#int(input('Por quanto tempo durara a fatura: '))
+        return despesas.update({descricao:[data_receita,valor_recebimento,tempo]})
+    
+    addespesa=Tk()
+    addespesa.configure(background="#dde")
+    addespesa.geometry("500x500")
+    addespesa.title('Receitas')
+    Button(addespesa, text="Cadastrar",width=22, bg='white', fg='black',command=add_despesas, font='None 14 bold').grid(row=8, column=0,columnspan=3, sticky=W)
+
+    entrada1=Entry(addespesa, width=25, bg='white')
+    entrada1.grid(row=1, column=1, sticky=W)
+    entrada2=Entry(addespesa, width=25, bg='white')
+    entrada2.grid(row=2, column=1, sticky=W)
+    entrada3=Entry(addespesa, width=25, bg='white')
+    entrada3.grid(row=3, column=1, sticky=W)
+    entrada4=Entry(addespesa, width=25, bg='white')
+    entrada4.grid(row=4, column=1, sticky=W)
+    
+    Label(addespesa, text="Descrição da Despesa").grid(row=1, column=0, sticky=W)
+    Label(addespesa, text="Dia do Pagamento").grid(row=2, column=0, sticky=W)
+    Label(addespesa, text="Valor").grid(row=3, column=0, sticky=W)
+    Label(addespesa, text="duração").grid(row=4, column=0, sticky=W)
+    addespesa.mainloop()
+
 
 def listagem(receitas,despesas):
     for keys, dados in receitas.items():
@@ -55,7 +103,7 @@ def exclusao_despesas():
     for chave in chaves_a_excluir:
         del despesas[chave]
 
-
+'''
 while True:
     print('-------------------------')
     print('|---------MENU----------|')
@@ -70,9 +118,9 @@ while True:
     op = input('')
     match op:
       case '1':
-          add_receita()
+          receita()
       case '2':
-          add_despesas()
+          despesas()
       case '3':
           listagem(receitas,despesas)
       case '4':
@@ -83,3 +131,4 @@ while True:
           break
       case _:
           print('Opção invalida')
+'''
