@@ -3,7 +3,8 @@ from tkinter import *
 
 receitas = {}
 despesas = {}
-def receita():
+
+def interface_receita():
     def add_receita():
         descricao= entrada1.get() #input('Informe a descrição da receita: ')
         data_receita=entrada2.get() #input('Informe o dia do recebimento: ')
@@ -33,7 +34,7 @@ def receita():
     Label(adReceitas, text="duração").grid(row=4, column=0, sticky=W)
 
     adReceitas.mainloop()
-def despesa():
+def interface_despesa():
     def add_despesas():
         descricao= entrada1.get#input('Informe a descrição da despesa: ')
         data_receita= entrada2.get#input('Informe o dia do pagamento: ')
@@ -63,13 +64,13 @@ def despesa():
     addespesa.mainloop()
 
 
-def listagem(receitas,despesas):
+def listagem(receitas= receitas,despesas= despesas):
     for keys, dados in receitas.items():
         data,valor,tempo=dados
-        print(f'{keys},dia do recebimento {data},valor do recebimento {valor},esse recebimento durara {tempo}meses')
+        print(f'{keys},dia do recebimento {data},valor do recebimento {valor},esse recebimento durara {tempo} meses')
     for keys, dados in despesas.items():
         data,valor,tempo=dados
-        print(f'{keys},dia do pagamento {data},valor do pagamento {valor},essa fatura durara {tempo}meses')
+        print(f'{keys},dia do pagamento {data},valor do pagamento {valor},essa fatura durara {tempo} meses')
 
 def total(receitas,despesas):
     for dados in receitas.values():
@@ -81,27 +82,58 @@ def total(receitas,despesas):
         total_despesa= valor*tempo
     return total_recebimento,total_despesa
 
-def exclusao_receita():
-    receita_excluir=input('Informe qual receita deseja excluir: ')
-    chaves_a_excluir = []
+def interface_ex_receita():
+    def exclusao_receita():
+        receita_excluir= entrada1.get #input('Informe qual receita deseja excluir: ')
+        chaves_a_excluir = []
 
-    for chave in receitas.keys():
-        if receita_excluir == chave:
-            chaves_a_excluir.append(chave)
+        for chave in receitas.keys():
+            if receita_excluir == chave:
+                chaves_a_excluir.append(chave)
 
-    for chave in chaves_a_excluir:
-        del receitas[chave]
+        for chave in chaves_a_excluir:
+            del receitas[chave]
 
-def exclusao_despesas():
-    despesas_excluir=input('Informe qual receita deseja excluir: ')
-    chaves_a_excluir = []
+    ex_receita = Tk()
+    ex_receita.configure(background='#dde')
+    ex_receita.geometry('500x500')
+    ex_receita.title('Exclusão de receita')
+    entrada1=Entry(ex_receita, width=25, bg='white')
+    entrada1.grid(row=1, column=1, sticky=W)
+    Label(ex_receita, text="Descrição da receita: ").grid(row=1, column=0, sticky=W)
+    Button(ex_receita, text="Excluir",width=22, bg='white', fg='black',command=exclusao_receita, font='None 14 bold').grid(row=8, column=0,columnspan=3, sticky=W)
+    ex_receita.mainloop()
 
-    for chave in despesas.keys():
-        if despesas_excluir == chave:
-            chaves_a_excluir.append(chave)
 
-    for chave in chaves_a_excluir:
-        del despesas[chave]
+
+
+
+def interface_ex_despesas():
+    def exclusao_despesas():
+        despesas_excluir=entrada1.get #input('Informe qual receita deseja excluir: ')
+        chaves_a_excluir = []
+
+        for chave in despesas.keys():
+            if despesas_excluir == chave:
+                chaves_a_excluir.append(chave)
+
+        for chave in chaves_a_excluir:
+            del despesas[chave]
+
+
+    ex_despesas = Tk()
+    ex_despesas.configure(background='#dde')
+    ex_despesas.geometry('500x500')
+    ex_despesas.title('Exclusão de Despesas')
+    entrada1=Entry(ex_despesas, width=25, bg='white')
+    entrada1.grid(row=1, column=1, sticky=W)
+    Label(ex_despesas, text="Descrição da Despesa").grid(row=1, column=0, sticky=W)
+    Button(ex_despesas, text="Excluir",width=22, bg='white', fg='black',command=exclusao_despesas, font='None 14 bold').grid(row=8, column=0,columnspan=3, sticky=W)
+    ex_despesas.mainloop()
+
+
+
+
 
 '''
 while True:
@@ -118,15 +150,15 @@ while True:
     op = input('')
     match op:
       case '1':
-          receita()
+          interface_receita()
       case '2':
-          despesas()
+          interface_despesa()
       case '3':
           listagem(receitas,despesas)
       case '4':
-          exclusao_receita()
+          interface_ex_receita()
       case '5':
-          exclusao_despesas()
+          interface_ex_despesas()
       case '6':
           break
       case _:
