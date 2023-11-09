@@ -85,20 +85,13 @@ def total(receitas,despesas):
 def interface_ex_receita():
     def exclusao_receita():
         
-        receita_excluir= str(entrada1.get) #input('Informe qual receita deseja excluir: ')
+        receita_excluir= entrada1.get #input('Informe qual receita deseja excluir: ')
         chaves_a_excluir = []
-        print(f'{receitas} receita')
-        print(f'{type(receita_excluir)}')
-
         for chave in receitas.keys():
-            if int(chave) == int(receita_excluir) :
+            if chave == receita_excluir :
                 chaves_a_excluir.append(chave)
-            print(f'{type(chave)} {type(receita_excluir)}')
-
-
         for chave in chaves_a_excluir:
             del receitas[chave]
-            print(f'{receitas} 222receita')
 
 
     ex_receita = Tk()
