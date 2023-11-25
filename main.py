@@ -1,40 +1,50 @@
 receitas = {}
 despesas = {}
 
-def add_receita():
-    descricao= input('Informe a descrição da receita: ')
-    data_receita= input('Informe o dia do recebimento: ')
-    valor_recebimento =float(input('Informe o valor do recebimento: '))
-    tempo= int(input('Por quanto tempo vc ira receber: '))
+
+def add_receita(x,y,z,a):
+    descricao= x #DESCRICAO RECEITA
+    data_receita=y  #dia do recebimento 
+    valor_recebimento =float(z)#(input('Informe o valor do recebimento: '))
+    tempo= int(a) #int(input('Por quanto tempo vc ira receber: '))
     return receitas.update({descricao:[data_receita,valor_recebimento,tempo]})
 
-def add_despesas():
-    descricao= input('Informe a descrição da despesa: ')
-    data_receita= input('Informe o dia do pagamento: ')
-    valor_recebimento =float(input('Informe o valor da despesa: '))
-    tempo= int(input('Por quanto tempo durara a fatura: '))
+def add_despesas(x,y,z,a):
+    descricao=x #input('Informe a descrição da despesa: ')
+    data_receita=y #input('Informe o dia do pagamento: ')
+    valor_recebimento =float(z) #float(input('Informe o valor da despesa: '))
+    tempo=int (a) #int(input('Por quanto tempo durara a fatura: '))
     return despesas.update({descricao:[data_receita,valor_recebimento,tempo]})
 
-def listagem(receitas,despesas):
+def listagem_receitas(receitas=receitas):
     for keys, dados in receitas.items():
         data,valor,tempo=dados
-        print(f'{keys},dia do recebimento {data},valor do recebimento {valor},esse recebimento durara {tempo}meses')
+        listagem=(f'Descrição: {keys},Dia do Recebimento: {data} ,Valor: {valor} ,Duração: {tempo} meses')
+        return listagem
+def listagem_despesas(despesas=despesas):        
     for keys, dados in despesas.items():
         data,valor,tempo=dados
-        print(f'{keys},dia do pagamento {data},valor do pagamento {valor},essa fatura durara {tempo}meses')
+        listagem =(f'{keys},dia do pagamento {data} ,valor do pagamento {valor} ,essa fatura durara {tempo}meses')
+        return listagem
 
-def total(receitas,despesas):
+def total_receitas(receitas=receitas):
+    total_recebimento=0
     for dados in receitas.values():
         data,valor,tempo = dados
-        total_recebimento= valor*tempo
+        mult = (valor*tempo)
+        total_recebimento +=mult
+    return total_recebimento
 
+def total_despesas(despesas=despesas):
+    total_despesa=0
     for dados in despesas.values():
         data,valor,tempo=dados
-        total_despesa= valor*tempo
-    return total_recebimento,total_despesa
+        mult= valor*tempo
+        total_despesa+=mult
+    return total_despesa
 
-def exclusao_receita():
-    receita_excluir=input('Informe qual receita deseja excluir: ')
+def exclusao_receita(X):
+    receita_excluir= X    #input('Informe qual receita deseja excluir: ')
     chaves_a_excluir = []
 
     for chave in receitas.keys():
@@ -42,10 +52,11 @@ def exclusao_receita():
             chaves_a_excluir.append(chave)
 
     for chave in chaves_a_excluir:
-        del receitas[chave]
+        iten_excluido=receitas.pop(chave)
+        return iten_excluido
 
-def exclusao_despesas():
-    despesas_excluir=input('Informe qual receita deseja excluir: ')
+def exclusao_despesas(X):
+    despesas_excluir=X #input('Informe qual receita deseja excluir: ')
     chaves_a_excluir = []
 
     for chave in despesas.keys():
@@ -53,9 +64,10 @@ def exclusao_despesas():
             chaves_a_excluir.append(chave)
 
     for chave in chaves_a_excluir:
-        del despesas[chave]
-
-
+        iten_excluido=despesas.pop(chave)
+        return iten_excluido
+    
+'''
 while True:
     print('-------------------------')
     print('|---------MENU----------|')
@@ -83,3 +95,4 @@ while True:
           break
       case _:
           print('Opção invalida')
+'''
