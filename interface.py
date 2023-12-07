@@ -95,27 +95,63 @@ def interface_cadastro():
             descricao = values['-DESCRICAO_RECEITA-']
             dia_recebimento = values['-DIA_RECEBIMENTO-']
             valor_recebimento = values['-VALOR_RECEITA-']
-            # Chama a função para cadastrar a receita com os valores fornecidos
-            add_receita(descricao, dia_recebimento, valor_recebimento)
-            
-            # Atualizar a lista na interface
-            cadastro_window['-LISTA_RECEITAS-'].update('')
-            for receita in listagem_receitas():
-                cadastro_window['-LISTA_RECEITAS-'].print(f'Descrição: {receita[0]}, Dia do Recebimento: {receita[1]}, Valor: {receita[2]:.2f}')
-            
-            # Limpar os campos
-            cadastro_window['-DESCRICAO_DESPESA-'].update('')   
+        # Verificando os dados das variaveis
+            if descricao != '' and dia_recebimento !='' and valor_recebimento !='':
+                # Testando a formatação da data
+                if test_data(dia_recebimento):
+                    #testando o valor da despesa
+                    try:
+                        float(valor_recebimento)
+                        # Chama a função para cadastrar a receita com os valores fornecidos
+                        add_receita(descricao, dia_recebimento, valor_recebimento)
+                            
+                        # Atualizar a lista na interface
+                        cadastro_window['-LISTA_RECEITAS-'].update('')
+                        for receita in listagem_receitas():
+                            cadastro_window['-LISTA_RECEITAS-'].print(f'Descrição: {receita[0]}, Dia do Recebimento: {receita[1]}, Valor: {receita[2]:.2f}')
+                            
+                        # Limpar os campos
+                        cadastro_window['-DESCRICAO_RECEITA-'].update('')
+                        cadastro_window['-VALOR_RECEITA-'].update('')
+                        cadastro_window['-DIA_RECEBIMENTO-'].update('')
+                    except ValueError:
+                        sg.popup(f'Valor {valor_recebimento} é inválida!', title='Valor Inválida')
+                else:
+                    sg.popup(f'A data {dia_recebimento} é inválida!', title='Data Inválida')
+            else:
+                sg.popup(f'Preencha todos os campos', title='Dados Inválidos') 
         # Verifica se o botão 'Cadastrar Despesa' foi pressionado
         elif event == '-CADASTRAR_DESPESA-':
             descricao = values['-DESCRICAO_DESPESA-']
             dia_pagamento = values['-DIA_PAGAMENTO-']
             valor_despesa = values['-VALOR_DESPESA-']
-            add_despesas(descricao, dia_pagamento, valor_despesa)
-            
-            # Atualizar a lista na interface
-            cadastro_window['-LISTA_DESPESAS-'].update('')
-            for despesa in listagem_despesas():
-                cadastro_window['-LISTA_DESPESAS-'].print(f'Descrição: {despesa[0]}, Dia do Pagamento: {despesa[1]}, Valor: {despesa[2]:.2f}')
+           # Verificando os dados das variaveis
+            if descricao != '' and dia_pagamento !='' and valor_despesa !='':
+                # Testando a formatação da data
+                if test_data(dia_pagamento):
+                    # testando o valor da despesa
+                    try:
+                        float(valor_despesa)
+                        # Chama a função para cadastrar a despesa com os valores fornecidos
+                        add_despesas(descricao, dia_pagamento, valor_despesa)
+                        
+                        # Atualizar a lista na interface
+                        cadastro_window['-LISTA_DESPESAS-'].update('')
+                        for despesa in listagem_despesas():
+                            cadastro_window['-LISTA_DESPESAS-'].print(f'Descrição: {despesa[0]}, Dia do Pagamento: {despesa[1]}, Valor: {despesa[2]:.2f}')
+
+                        # Limpar os campos
+                        cadastro_window['-DESCRICAO_DESPESA-'].update('')
+                        cadastro_window['-VALOR_DESPESA-'].update('')
+                        cadastro_window['-DIA_PAGAMENTO-'].update('')
+                        
+                    except ValueError:
+                        sg.popup(f'Valor {valor_despesa} é inválida!', title='Valor Inválida')
+                else:
+                    sg.popup(f'A data {dia_pagamento} é inválida!', title='Data Inválida')
+            else:
+                sg.popup(f'Preencha todos os campos', title='Dados Inválidos')
+                
         # Verifica se o botão 'Calcular Receita Total' foi pressionado
         elif event == '-CALCULAR_RECEITA_TOTAL-':
             # Calcula o total de receitas

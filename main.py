@@ -1,5 +1,6 @@
 import sqlite3
 from fpdf import * 
+from datetime import datetime
 
 # Conectar ao banco de dados
 conn = sqlite3.connect('gerenciador_financeiro.db')
@@ -28,6 +29,12 @@ cursor.execute('''
 # Confirma as alteracoes no banco de dados
 conn.commit()
 
+def test_data(data):
+    try:
+        datetime.strptime(data, '%d/%m/%Y')
+        return True
+    except ValueError:
+        return False
 
 # Funcao para adicionar uma receita ao banco de dados
 def add_receita(x, y, z):
@@ -180,7 +187,7 @@ def imprimir_pdf():
     ]
     for x in receitas:
         descrição,data,valor = x
-        auxi_valor=(f'{valor:.2f}')
+        auxi_valor=(f'R${valor:.2f}')
         tabela_receitas.append((descrição,data,auxi_valor))
 
 
@@ -197,7 +204,7 @@ def imprimir_pdf():
     ]
     for x in despesas:
         descrição,data,valor = x
-        auxi_valor=(f'{valor:.2f}')
+        auxi_valor=(f'R${valor:.2f}')
         tabela_despesas.append((descrição,data,auxi_valor))
 
     #criação do layout do pdf
@@ -214,16 +221,16 @@ def imprimir_pdf():
                 row.cell(datum)
     pdf.ln()
 
-    pdf.cell(w=0, h=16, txt='Tabela de Receitas', ln=True, align='C')
+    pdf.cell(w=0, h=16, txt='Tabela de Despesas', ln=True, align='C')
     with pdf.table() as table:
         for data_row in tabela_despesas:
             row = table.row()
             for datum in data_row:
                 row.cell(datum)
     pdf.ln()
-    pdf.cell(w=0, h=16, txt=f'Total Receitas: {total_receitas():.2f}', ln=True, align='C')
-    pdf.cell(w=0, h=16, txt=f'Total Despesas: {total_despesas():.2f}', ln=True, align='C')
+    pdf.cell(w=0, h=16, txt=f'Total Receitas: R${total_receitas():.2f}', ln=True, align='C')
+    pdf.cell(w=0, h=16, txt=f'Total Despesas: R${total_despesas():.2f}', ln=True, align='C')
     total_saldo=total_receitas()-total_despesas()
-    pdf.cell(w=0, h=16, txt=f'Saldo restante: {total_saldo:.2f}')
+    pdf.cell(w=0, h=16, txt=f'Saldo restante: R${total_saldo:.2f}')
     pdf.output('RELATORIO_RECEITAS_DESPESAS.pdf')
     
